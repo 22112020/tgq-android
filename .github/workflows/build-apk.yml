@@ -22,22 +22,17 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Setup Gradle 8.2
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.2'
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x android/gradlew 2>/dev/null || true
-
       - name: Build Debug APK
         working-directory: android
-        run: |
-          if [ -x ./gradlew ]; then
-            ./gradlew assembleDebug --no-daemon
-          else
-            echo "gradlew missing - installing gradle wrapper"
-            gradle wrapper --gradle-version 8.2
-            ./gradlew assembleDebug --no-daemon
-          fi
+        run: gradle assembleDebug --no-daemon
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
@@ -45,20 +40,3 @@ jobs:
           name: tgq-app-debug
           path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-
-      - name: Build Release APK
-        working-directory: android
-        run: |
-          if [ -x ./gradlew ]; then
-            ./gradlew assembleRelease --no-daemon
-          else
-            gradle wrapper --gradle-version 8.2
-            ./gradlew assembleRelease --no-daemon
-          fi
-
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: tgq-app-release
-          path: android/app/build/outputs/apk/release/*.apk
-          if-no-files-found: warn
