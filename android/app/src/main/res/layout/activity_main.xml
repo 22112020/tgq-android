@@ -7,6 +7,50 @@
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="#c084fc"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/errorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:background="#080914"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tidak dapat terhubung ke server TGQ."
+            android:textColor="#e4e4e7"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-medium" />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Coba Lagi"
+            android:backgroundTint="#c084fc"
+            android:textColor="#ffffff"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
 
 </FrameLayout>
