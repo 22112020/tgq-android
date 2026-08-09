@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TGQ Native — Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0713;
+  --surface:#171226;
+  --surface-2:#1f1830;
+  --surface-3:#2a2140;
+  --stroke:rgba(255,255,255,.08);
+  --stroke-2:rgba(255,255,255,.14);
+  --text:#f4f1fa;
+  --text-2:#b9afcb;
+  --text-3:#7d7494;
+  --brand-1:#8b5cf6;
+  --brand-2:#ec4899;
+  --brand-3:#f5b84b;
+  --grad:linear-gradient(135deg,#8b5cf6 0%,#ec4899 100%);
+  --grad-gold:linear-gradient(135deg,#f59e0b 0%,#ec4899 100%);
+  --grad-soft:linear-gradient(135deg,rgba(139,92,246,.16),rgba(236,72,153,.12));
+  --ok:#34d399;
+  --err:#fb7185;
+  --radius:22px;
+  --font:'Outfit',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --num:'Space Grotesk',var(--font);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.5}
+::selection{background:rgba(139,92,246,.4)}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 28px 80px}
+
+/* ===== Hero header ===== */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.hero-left h1{font-size:34px;font-weight:800;letter-spacing:-.5px}
+.hero-left h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-left p{color:var(--text-2);font-size:14px;margin-top:6px;max-width:520px}
+.hero-left p b{color:var(--text)}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:600;padding:7px 14px;border-radius:99px;border:1px solid var(--stroke-2);color:var(--text-2);background:var(--surface)}
+.pill b{color:var(--text);font-weight:700}
+
+/* ===== Section headings ===== */
+.sec{margin:56px 0 20px}
+.sec h2{font-size:19px;font-weight:700;display:flex;align-items:center;gap:10px}
+.sec h2 .bar{width:4px;height:18px;border-radius:3px;background:var(--grad);display:inline-block}
+.sec .sub{color:var(--text-3);font-size:13px;margin-top:4px}
+
+/* ===== Design system swatches ===== */
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.swatch{border-radius:16px;overflow:hidden;border:1px solid var(--stroke);background:var(--surface)}
+.swatch .c{height:74px}
+.swatch .i{padding:10px 12px}
+.swatch .i .n{font-size:12px;font-weight:600;color:var(--text)}
+.swatch .i .v{font-size:11px;color:var(--text-3);font-family:var(--num)}
+.grad1{background:var(--grad)}.grad2{background:var(--grad-gold)}.grad3{background:linear-gradient(135deg,#34d399,#059669)}
+.grad4{background:linear-gradient(135deg,#fb7185,#e11d48)}
+.c1{background:#0b0713}.c2{background:#171226}.c3{background:#1f1830}.c4{background:#f4f1fa}.c5{background:#8b5cf6}.c6{background:#ec4899}.c7{background:#f5b84b}.c8{background:#34d399}.c9{background:#fb7185}
+
+/* ===== Type scale ===== */
+.type{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.type .t{background:var(--surface);border:1px solid var(--stroke);border-radius:16px;padding:16px}
+.type .t .name{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.s40{font-size:40px;font-weight:800;letter-spacing:-1px}
+.s28{font-size:28px;font-weight:700}
+.s20{font-size:20px;font-weight:600}
+.s14{font-size:14px;font-weight:500;color:var(--text-2)}
+.s12{font-size:12px;color:var(--text-3)}
+.num{font-family:var(--num);letter-spacing:1px}
+
+/* ===== Components ===== */
+.comp{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--font);font-size:13px;font-weight:700;border:none;border-radius:13px;padding:12px 18px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn-grad{background:var(--grad);color:#fff}
+.btn-gold{background:var(--grad-gold);color:#fff}
+.btn-ghost{background:var(--surface-2);color:var(--text);border:1px solid var(--stroke-2)}
+.btn .ic{width:16px;height:16px;display:inline-block;position:relative}
+.chip{font-size:12px;font-weight:600;padding:7px 14px;border-radius:99px;background:var(--surface-2);border:1px solid var(--stroke-2);color:var(--text-2)}
+.chip.active{background:var(--grad);color:#fff;border:none}
+.tag{font-size:10px;font-weight:700;letter-spacing:.6px;padding:4px 10px;border-radius:99px;text-transform:uppercase}
+.tag.live{background:rgba(52,211,153,.14);color:var(--ok)}
+.tag.wait{background:rgba(245,184,75,.14);color:var(--brand-3)}
+.tag.done{background:rgba(139,92,246,.18);color:#c4b5fd}
+
+/* ===== Phone frames ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:34px;margin-top:8px}
+.phone-card{display:flex;flex-direction:column;gap:12px}
+.phone{width:340px;height:712px;margin:0 auto;border-radius:46px;background:#060409;padding:14px;border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.05),inset 0 0 0 1px rgba(255,255,255,.06);position:relative}
+.phone::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#060409;border-radius:0 0 16px 16px;z-index:5}
+.screen{width:100%;height:100%;border-radius:34px;overflow:hidden;background:var(--bg);position:relative;display:flex;flex-direction:column;font-size:13px}
+.cap{text-align:center;color:var(--text-3);font-size:12px;font-weight:500}
+
+/* status bar */
+.sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 6px;font-size:12px;font-weight:700;color:var(--text)}
+.sb .r{display:flex;gap:5px;align-items:center}
+.sb .batt{width:20px;height:10px;border:1.5px solid var(--text-2);border-radius:3px;position:relative}
+.sb .batt::after{content:"";position:absolute;top:1.5px;left:1.5px;width:12px;height:5px;background:var(--text-2);border-radius:1px}
+
+/* shared screen bits */
+.appbar{display:flex;align-items:center;justify-content:space-between;padding:6px 18px}
+.appbar .t{font-size:17px;font-weight:700}
+.appbar .dot{width:34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);font-size:15px}
+.pad{padding:0 18px}
+.grad-orb{position:absolute;width:240px;height:240px;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none}
+
+/* splash */
+.splash .logo-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.mark{width:92px;height:92px;border-radius:28px;background:var(--grad);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 20px 60px -12px rgba(236,72,153,.55)}
+.mark::after{content:"";position:absolute;inset:6px;border-radius:21px;border:1.5px solid rgba(255,255,255,.35)}
+.mark span{font-size:40px;font-weight:800;color:#fff;letter-spacing:-1px}
+.splash .brand{font-size:24px;font-weight:800;letter-spacing:.5px}
+.splash .brand small{display:block;font-size:11px;font-weight:600;letter-spacing:4px;color:var(--brand-3);margin-top:4px}
+.splash .tagline{color:var(--text-3);font-size:12px;letter-spacing:.5px}
+.loader{display:flex;gap:7px;padding:8px 0 40px}
+.loader i{width:7px;height:7px;border-radius:50%;background:var(--text-3);animation:pulse 1.2s infinite}
+.loader i:nth-child(2){animation-delay:.2s}.loader i:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+
+/* home */
+.home .greet{font-size:12px;color:var(--text-3);margin-top:4px}
+.home .greet b{color:var(--text);font-size:14px}
+.hoki{position:relative;overflow:hidden;border-radius:24px;padding:18px;background:var(--surface);border:1px solid var(--stroke);margin:10px 0}
+.hoki::before{content:"";position:absolute;inset:0;background:var(--grad-soft)}
+.hoki .lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--brand-3);text-transform:uppercase;position:relative}
+.hoki .flex{display:flex;align-items:center;justify-content:space-between;position:relative;margin-top:8px}
+.hoki .big{font-family:var(--num);font-size:44px;font-weight:700;letter-spacing:3px;line-height:1}
+.hoki .sub{color:var(--text-2);font-size:11px;margin-top:6px;position:relative}
+.ring{width:58px;height:58px;border-radius:50%;background:conic-gradient(var(--brand-2) 62%, rgba(255,255,255,.08) 0);display:flex;align-items:center;justify-content:center;position:relative}
+.ring::before{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--surface)}
+.ring b{position:relative;font-size:13px}
+.ring small{position:absolute;bottom:-13px;font-size:8px;color:var(--text-3)}
+.mkt{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--surface);border:1px solid var(--stroke);border-radius:17px;margin-bottom:9px}
+.mkt .name{font-weight:700;font-size:13px}
+.mkt .p{font-size:10px;color:var(--text-3);font-family:var(--num);margin-top:1px}
+.mkt .res{font-family:var(--num);font-size:17px;font-weight:700;letter-spacing:1.5px}
+.mkt .rc{text-align:right}
+.bnav{display:flex;justify-content:space-around;padding:10px 8px calc(14px + env(safe-area-inset-bottom));background:rgba(23,18,38,.92);border-top:1px solid var(--stroke);margin-top:auto}
+.bnav .nb{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;color:var(--text-3);font-weight:600}
+.bnav .nb.on{color:var(--brand-2)}
+.bnav .nb .ic2{width:22px;height:22px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.bnav .nb.on .ic2{background:var(--grad-soft);color:var(--brand-2)}
+
+/* market detail */
+.mdet .mtag{margin-left:8px}
+.bigpred{position:relative;overflow:hidden;border-radius:26px;padding:22px 18px;background:var(--grad);text-align:center;margin:12px 0;color:#fff;box-shadow:0 24px 60px -18px rgba(236,72,153,.5)}
+.bigpred::after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.14);filter:blur(50px);top:-70px;right:-50px}
+.bigpred .cap{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.85;font-weight:700}
+.bigpred .nums{font-family:var(--num);font-size:46px;font-weight:700;letter-spacing:4px;margin:10px 0 4px}
+.bigpred .bk{font-size:12px;opacity:.9;font-family:var(--num);letter-spacing:2px}
+.statrow{display:flex;gap:9px;margin:12px 0}
+.stat{flex:1;background:var(--surface);border:1px solid var(--stroke);border-radius:16px;padding:12px;text-align:center}
+.stat .k{font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:.6px}
+.stat .v{font-family:var(--num);font-size:19px;font-weight:700;margin-top:3px}
+.bars{margin:8px 0 14px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.bar-row .d{width:20px;font-family:var(--num);font-size:12px;font-weight:700;color:var(--text-2)}
+.bar-track{flex:1;height:9px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;background:var(--grad)}
+.bar-row .p{width:34px;text-align:right;font-size:11px;color:var(--text-3);font-family:var(--num)}
+
+/* input */
+.inp .datescroll{display:flex;gap:8px;overflow:hidden;padding:8px 0 12px}
+.inp textarea{width:100%;height:86px;background:var(--surface-2);border:1px solid var(--stroke-2);border-radius:14px;padding:12px;color:var(--text);font-family:var(--num);font-size:11px;line-height:1.7;resize:none}
+.inp .extract-row{display:flex;gap:8px;margin-top:10px}
+.extract{flex:1;background:var(--surface);border:1px solid var(--stroke);border-radius:13px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.extract .m{font-size:11px;font-weight:700}
+.extract .r{font-family:var(--num);font-size:15px;font-weight:700;letter-spacing:1.5px;color:var(--brand-3)}
+.extract .p{font-size:9px;color:var(--text-3);font-family:var(--num)}
+
+/* settings */
+.set-group{background:var(--surface);border:1px solid var(--stroke);border-radius:18px;overflow:hidden;margin:10px 0}
+.set-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--stroke)}
+.set-row:last-child{border-bottom:none}
+.set-row .ic3{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);font-size:14px}
+.set-row .lbl{flex:1;font-size:13px;font-weight:600}
+.set-row .val{font-size:11px;color:var(--text-3);font-family:var(--num)}
+.toggle{width:40px;height:23px;border-radius:99px;background:var(--grad);position:relative;flex:none}
+.toggle::after{content:"";position:absolute;top:3px;right:3px;width:17px;height:17px;border-radius:50%;background:#fff}
+.toggle.off{background:var(--surface-3)}
+.toggle.off::after{right:auto;left:3px}
+.profile{display:flex;align-items:center;gap:14px;padding:18px;background:var(--grad-soft);border:1px solid var(--stroke);border-radius:20px;margin-top:12px}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;font-weight:800}
+.profile .n{font-weight:700;font-size:15px}
+.profile .e{font-size:11px;color:var(--text-2)}
+.badge-admin{background:var(--grad-gold);color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:99px;letter-spacing:.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="hero-left">
+      <h1>TGQ <span class="grad">Native</span> — Design Preview</h1>
+      <p>Konsep UI/UX aplikasi Android native untuk <b>TGQ — Luna Core</b>.<br>
+      Dark premium, signature gradient <b>violet → magenta → gold</b>, glassmorphism ringan, angka tabular khas prediksi.</p>
+    </div>
+    <div class="meta">
+      <span class="pill">v1.0 konsep</span>
+      <span class="pill">6 layar</span>
+      <span class="pill">Stack: <b>Kotlin + Jetpack Compose</b></span>
+    </div>
+  </header>
+
+  <!-- ============ DESIGN SYSTEM ============ -->
+  <div class="sec"><h2><span class="bar"></span>Palette &amp; Sistem Desain</h2></div>
+  <div class="swatches">
+    <div class="swatch"><div class="c c1"></div><div class="i"><div class="n">Night Ink</div><div class="v">#0B0713 · background</div></div></div>
+    <div class="swatch"><div class="c c2"></div><div class="i"><div class="n">Surface</div><div class="v">#171226 · card</div></div></div>
+    <div class="swatch"><div class="c c3"></div><div class="i"><div class="n">Surface High</div><div class="v">#1F1830</div></div></div>
+    <div class="swatch"><div class="c grad1"></div><div class="i"><div class="n">Brand Gradient</div><div class="v">#8B5CF6 → #EC4899</div></div></div>
+    <div class="swatch"><div class="c grad2"></div><div class="i"><div class="n">Gold Accent</div><div class="v">#F59E0B → #EC4899</div></div></div>
+    <div class="swatch"><div class="c c5"></div><div class="i"><div class="n">Violet</div><div class="v">#8B5CF6</div></div></div>
+    <div class="swatch"><div class="c c6"></div><div class="i"><div class="n">Magenta</div><div class="v">#EC4899</div></div></div>
+    <div class="swatch"><div class="c c7"></div><div class="i"><div class="n">Gold</div><div class="v">#F5B84B</div></div></div>
+    <div class="swatch"><div class="c c8"></div><div class="i"><div class="n">Success</div><div class="v">#34D399</div></div></div>
+    <div class="swatch"><div class="c c9"></div><div class="i"><div class="n">Danger</div><div class="v">#FB7185</div></div></div>
+  </div>
+
+  <div class="sec" style="margin-top:34px"></div>
+  <div class="type">
+    <div class="t"><div class="name">Display — angka utama</div><div class="s40 num">56428</div></div>
+    <div class="t"><div class="name">Judul layar</div><div class="s28">Pasaran Terkini</div></div>
+    <div class="t"><div class="name">Judul kartu</div><div class="s20">Prediksi Hoki</div></div>
+    <div class="t"><div class="name">Body</div><div class="s14">Gunakan data pasaran untuk prediksi yang lebih akurat.</div></div>
+    <div class="t"><div class="name">Keterangan</div><div class="s12">Diperbarui 5 menit lalu · Engine oregon v1</div></div>
+  </div>
+
+  <div class="sec" style="margin-top:34px"></div>
+  <div class="comp">
+    <button class="btn btn-grad"><span class="ic">✦</span>Tombol Utama</button>
+    <button class="btn btn-gold"><span class="ic">★</span>Tombol Gold</button>
+    <button class="btn btn-ghost"><span class="ic">·</span>Tombol Sekunder</button>
+    <span class="chip">Chip</span><span class="chip active">Chip Aktif</span>
+    <span class="tag live">● Live</span><span class="tag wait">Menunggu</span><span class="tag done">Selesai</span>
+  </div>
+
+  <!-- ============ SCREENS ============ -->
+  <div class="sec"><h2><span class="bar"></span>Layar — Mockup Native</h2><div class="sub">Setiap frame = satu layar utama aplikasi Android native</div></div>
+
+  <div class="grid">
+
+    <!-- ===== SPLASH ===== -->
+    <div class="phone-card">
+      <div class="phone"><div class="screen splash">
+        <div class="sb"><span>09:41</span><span class="r"><span>5G</span><span class="batt"></span></span></div>
+        <div class="logo-wrap">
+          <div class="mark"><span>TG</span></div>
+          <div class="brand">LUNA CORE<small>TOGELKU</small></div>
+          <div class="tagline">Prediksi cerdas · hasil akurat</div>
+        </div>
+        <div class="loader"><i></i><i></i><i></i></div>
+      </div></div>
+      <div class="cap">1 · Splash Screen</div>
+    </div>
+
+    <!-- ===== HOME ===== -->
+    <div class="phone-card">
+      <div class="phone"><div class="screen home">
+        <div class="grad-orb" style="top:-60px;right:-60px;background:#8b5cf6"></div>
+        <div class="grad-orb" style="bottom:120px;left:-90px;background:#ec4899"></div>
+        <div class="sb"><span>09:41</span><span class="r"><span>5G</span><span class="batt"></span></span></div>
+        <div class="appbar">
+          <div>
+            <div class="t">Beranda</div>
+            <div class="greet">Selamat pagi, <b>Mr.2211</b></div>
+          </div>
+          <div class="dot">🔔</div>
+        </div>
+        <div class="pad">
+          <div class="hoki">
+            <div class="lbl">✦ Prediksi Hoki Hari Ini</div>
+            <div class="flex">
+              <div>
+                <div class="big">56428</div>
+                <div class="sub">backup 7 · target P2290</div>
+              </div>
+              <div><div class="ring"><b>62%</b><small>konfiden</small></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="pad" style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:14px;font-weight:700">Pasaran Terkini</span>
+          <span style="font-size:11px;color:var(--brand-3);font-weight:600">Lihat semua →</span>
+        </div>
+        <div class="pad">
+          <div class="mkt"><div><div class="name">OREGON03</div><div class="p">P2083 · 09:30</div></div><div class="rc"><span class="tag live">Live</span><div class="res" style="margin-top:4px">3927</div></div></div>
+          <div class="mkt"><div><div class="name">4D TOTO MACAU</div><div class="p">P2245 · 13:00</div></div><div class="rc"><span class="tag wait">Menunggu</span><div class="res" style="margin-top:4px;color:var(--text-3)">— — — —</div></div></div>
+          <div class="mkt"><div><div class="name">HONGKONG POOLS</div><div class="p">P1088 · 23:00</div></div><div class="rc"><span class="tag done">Selesai</span><div class="res" style="margin-top:4px">8846</div></div></div>
+        </div>
+        <div class="bnav">
+          <div class="nb on"><div class="ic2">▣</div>Beranda</div>
+          <div class="nb"><div class="ic2">▤</div>Pasaran</div>
+          <div class="nb"><div class="ic2">✚</div>Input</div>
+          <div class="nb"><div class="ic2">◉</div>Profil</div>
+        </div>
+      </div></div>
+      <div class="cap">2 · Beranda (Dashboard)</div>
+    </div>
+
+    <!-- ===== MARKET DETAIL ===== -->
+    <div class="phone-card">
+      <div class="phone"><div class="screen mdet">
+        <div class="grad-orb" style="top:-70px;right:-70px;background:#ec4899"></div>
+        <div class="sb"><span>09:41</span><span class="r"><span>5G</span><span class="batt"></span></span></div>
+        <div class="appbar">
+          <div class="dot" style="font-size:18px">‹</div>
+          <div style="display:flex;align-items:center"><span class="t">OREGON03</span><span class="tag live mtag">Live</span></div>
+          <div class="dot" style="font-size:14px">⋯</div>
+        </div>
+        <div class="pad">
+          <div class="bigpred">
+            <div class="cap">Prediksi Engine</div>
+            <div class="nums">39 2 7</div>
+            <div class="bk">backup 5 8 1 · 2 4 6</div>
+          </div>
+          <div class="statrow">
+            <div class="stat"><div class="k">Konfiden</div><div class="v" style="color:var(--brand-2)">62%</div></div>
+            <div class="stat"><div class="k">Window</div><div class="v">90</div></div>
+            <div class="stat"><div class="k">Akurasi</div><div class="v" style="color:var(--ok)">+4.2%</div></div>
+          </div>
+          <div style="font-size:14px;font-weight:700;margin:4px 0 8px">Frekuensi Posisi</div>
+          <div class="bars">
+            <div class="bar-row"><span class="d">4</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span class="p">18×</span></div>
+            <div class="bar-row"><span class="d">6</span><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><span class="p">14×</span></div>
+            <div class="bar-row"><span class="d">2</span><div class="bar-track"><div class="bar-fill" style="width:58%"></div></div><span class="p">11×</span></div>
+            <div class="bar-row"><span class="d">7</span><div class="bar-track"><div class="bar-fill" style="width:41%"></div></div><span class="p">8×</span></div>
+            <div class="bar-row"><span class="d">9</span><div class="bar-track"><div class="bar-fill" style="width:26%"></div></div><span class="p">5×</span></div>
+          </div>
+          <div class="statrow" style="margin-top:0">
+            <div class="stat"><div class="k">Engine</div><div class="v" style="font-size:12px;font-family:var(--font)">oregon</div></div>
+            <div class="stat"><div class="k">Periode</div><div class="v" style="font-size:15px">P2084</div></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="cap">3 · Detail Pasaran + Prediksi</div>
+    </div>
+
+    <!-- ===== HOKI ===== -->
+    <div class="phone-card">
+      <div class="phone"><div class="screen home">
+        <div class="grad-orb" style="top:-50px;left:-60px;background:#8b5cf6"></div>
+        <div class="grad-orb" style="bottom:140px;right:-80px;background:#f59e0b"></div>
+        <div class="sb"><span>09:41</span><span class="r"><span>5G</span><span class="batt"></span></span></div>
+        <div class="appbar">
+          <div class="dot" style="font-size:18px">‹</div>
+          <div class="t">Prediksi Hoki</div>
+          <div class="dot" style="font-size:15px">⇪</div>
+        </div>
+        <div class="pad" style="text-align:center;margin-top:8px">
+          <div class="tag live" style="display:inline-flex">● Hari Ini · 09-08-2026</div>
+          <div style="margin:26px 0 4px">
+            <div style="font-family:var(--num);font-size:74px;font-weight:700;letter-spacing:6px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">56428</div>
+            <div style="font-family:var(--num);font-size:20px;color:var(--text-2);letter-spacing:4px;margin-top:6px">7 3 1 9 4</div>
+          </div>
+          <div class="statrow">
+            <div class="stat"><div class="k">Main</div><div class="v">5</div></div>
+            <div class="stat"><div class="k">Backup</div><div class="v">5</div></div>
+            <div class="stat"><div class="k">Konfiden</div><div class="v" style="color:var(--brand-2)">62%</div></div>
+          </div>
+          <button class="btn btn-grad" style="width:100%;justify-content:center;margin-top:6px"><span class="ic">⇪</span>Bagikan Prediksi</button>
+          <p style="font-size:10px;color:var(--text-3);margin-top:12px;line-height:1.6">Dihasilkan Luna Core v1.0 · engine oregon · hanya alat bantu analisis</p>
+        </div>
+      </div></div>
+      <div class="cap">4 · Prediksi Hoki (hero)</div>
+    </div>
+
+    <!-- ===== INPUT ===== -->
+    <div class="phone-card">
+      <div class="phone"><div class="screen inp">
+        <div class="sb"><span>09:41</span><span class="r"><span>5G</span><span class="batt"></span></span></div>
+        <div class="appbar">
+          <div class="dot" style="font-size:18px">‹</div>
+          <div class="t">Input Data</div>
+          <div class="dot" style="font-size:12px">👤</div>
+        </div>
+        <div class="pad">
+          <div class="datescroll">
+            <span class="chip">07-08</span><span class="chip">08-08</span><span class="chip active">09-08</span><span class="chip">10-08</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:6px">Tempel data dari situs result</div>
+          <textarea spellcheck="false">TOTO MACAU POOL
+8672
+[PERIODE : 2245]
+
+OREGON03 POOL
+3927
+[PERIODE : 2083]</textarea>
+          <div class="extract-row">
+            <button class="btn btn-ghost" style="flex:1;justify-content:center">Uraikan</button>
+            <button class="btn btn-grad" style="flex:1;justify-content:center">Kirim</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px">
+            <span style="font-size:12px;font-weight:700">Hasil Ekstraksi</span><span class="tag wait">2 data</span>
+          </div>
+          <div class="extract"><div><div class="m">4D TOTO MACAU</div><div class="p">#2245</div></div><div class="r">8672</div></div>
+          <div class="extract"><div><div class="m">OREGON03</div><div class="p">#2083</div></div><div class="r">3927</div></div>
+        </div>
+        <div class="bnav" style="margin-top:auto">
+          <div class="nb"><div class="ic2">▣</div>Beranda</div>
+          <div class="nb"><div class="ic2">▤</div>Pasaran</div>
+          <div class="nb on"><div class="ic2">✚</div>Input</div>
+          <div class="nb"><div class="ic2">◉</div>Profil</div>
+        </div>
+      </div></div>
+      <div class="cap">5 · Input (admin, auth login)</div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div class="phone-card">
+      <div class="phone"><div class="screen">
+        <div class="sb"><span>09:41</span><span class="r"><span>5G</span><span class="batt"></span></span></div>
+        <div class="appbar">
+          <div class="dot" style="font-size:18px">‹</div>
+          <div class="t">Profil &amp; Pengaturan</div>
+          <div style="width:34px"></div>
+        </div>
+        <div class="pad">
+          <div class="profile">
+            <div class="avatar">M</div>
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:7px"><span class="n">Mr.2211</span><span class="badge-admin">ADMIN</span></div>
+              <div class="e">milklho · masuk sebagai administrator</div>
+            </div>
+          </div>
+          <div class="set-group">
+            <div class="set-row"><div class="ic3">⌂</div><div class="lbl">Server</div><div class="val">tgq.duaduasatusatu.qzz.io</div></div>
+            <div class="set-row"><div class="ic3">🕒</div><div class="lbl">Notifikasi prediksi</div><div class="toggle"></div></div>
+            <div class="set-row"><div class="ic3">◐</div><div class="lbl">Tema gelap</div><div class="toggle"></div></div>
+            <div class="set-row"><div class="ic3">📶</div><div class="lbl">Data saat offline</div><div class="toggle off"></div></div>
+          </div>
+          <div class="set-group">
+            <div class="set-row"><div class="ic3">ℹ</div><div class="lbl">Tentang Luna Core</div><div class="val">v1.0</div></div>
+            <div class="set-row"><div class="ic3" style="color:var(--err)">⎋</div><div class="lbl" style="color:var(--err)">Keluar</div></div>
+          </div>
+          <p style="font-size:9px;color:var(--text-3);text-align:center;margin-top:14px;line-height:1.6">TGQ — Luna Core v1.0 · engine oregon · toto_macau · historical_trend<br>Dikembangkan untuk analisis &amp; hiburan</p>
+        </div>
+      </div></div>
+      <div class="cap">6 · Profil &amp; Pengaturan</div>
+    </div>
+
+  </div>
+
+  <!-- ============ ICONS ============ -->
+  <div class="sec"><h2><span class="bar"></span>Ikon Aplikasi — 3 Konsep Launcher</h2>
+    <div class="sub">Launcher icon dirender native sebagai <b>Adaptive Icon</b> (mask Android otomatis). Mark tetap utuh di zona aman tengah (diameter 66 dari 108dp).</div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px">
+
+    <div class="phone-card">
+      <div style="display:flex;gap:14px;justify-content:center;padding:18px 0">
+        <svg viewBox="0 0 108 108" width="96" height="96" style="border-radius:22px">
+          <defs><linearGradient id="ia" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs>
+          <rect width="108" height="108" rx="24" fill="url(#ia)"/>
+          <rect x="9" y="9" width="90" height="90" rx="17" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+          <text x="54" y="69" font-family="Outfit, sans-serif" font-size="44" font-weight="800" fill="#fff" text-anchor="middle">TG</text>
+        </svg>
+        <svg viewBox="0 0 108 108" width="96" height="96" style="border-radius:22px">
+          <rect width="108" height="108" rx="24" fill="#171226"/>
+          <circle cx="54" cy="54" r="31" fill="none" stroke="url(#ia)" stroke-width="6"/>
+          <text x="54" y="66" font-family="'Space Grotesk', sans-serif" font-size="36" font-weight="700" fill="#f5b84b" text-anchor="middle">5</text>
+          <circle cx="80" cy="35" r="6" fill="#ec4899"/>
+        </svg>
+        <svg viewBox="0 0 108 108" width="96" height="96" style="border-radius:22px">
+          <rect width="108" height="108" rx="24" fill="#0b0713"/>
+          <path d="M54 18 L84 54 L54 90 L24 54 Z" fill="url(#ia)"/>
+          <path d="M54 18 L84 54 L54 90 L24 54 Z" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <path d="M24 54 L54 90 L54 54 Z" fill="rgba(255,255,255,.16)"/>
+          <circle cx="54" cy="54" r="3" fill="#f5b84b"/>
+        </svg>
+      </div>
+      <div class="cap" style="line-height:1.6">
+        <b>A · TG Monogram</b> — gradient segi empat, paling cocok dengan splash<br>
+        <b>B · Orbit Angka</b> — orbit + digit emas, simbol prediksi<br>
+        <b>C · Permata Luna</b> — diamond gradient, kesan premium "hoki"
+      </div>
+    </div>
+
+    <div class="phone-card">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 10px">
+        <div style="text-align:center"><div style="border-radius:50%;background:#171226;padding:6px"><svg viewBox="0 0 108 108" width="62" height="62"><circle cx="54" cy="54" r="52" fill="url(#ia)"/><circle cx="54" cy="54" r="44" fill="#171226"/><text x="54" y="69" font-family="Outfit, sans-serif" font-size="42" font-weight="800" fill="#fff" text-anchor="middle">TG</text></svg></div><div style="font-size:9px;color:var(--text-3);margin-top:5px">Circle</div></div>
+        <div style="text-align:center"><div style="border-radius:16px;background:#171226;padding:6px"><svg viewBox="0 0 108 108" width="62" height="62"><rect width="108" height="108" rx="26" fill="url(#ia)"/><rect x="10" y="10" width="88" height="88" rx="20" fill="#171226"/><text x="54" y="69" font-family="Outfit, sans-serif" font-size="42" font-weight="800" fill="#fff" text-anchor="middle">TG</text></svg></div><div style="font-size:9px;color:var(--text-3);margin-top:5px">Squircle</div></div>
+        <div style="text-align:center"><div style="border-radius:20px;background:#171226;padding:6px"><svg viewBox="0 0 108 108" width="62" height="62"><rect width="108" height="108" rx="18" fill="url(#ia)"/><rect x="10" y="10" width="88" height="88" rx="14" fill="#171226"/><text x="54" y="69" font-family="Outfit, sans-serif" font-size="42" font-weight="800" fill="#fff" text-anchor="middle">TG</text></svg></div><div style="font-size:9px;color:var(--text-3);margin-top:5px">Rounded</div></div>
+        <div style="text-align:center"><div style="border-radius:50% 50% 50% 50% / 80% 80% 30% 30%;background:#171226;padding:6px"><svg viewBox="0 0 108 108" width="62" height="62"><path d="M54 6 C84 26 92 62 78 96 L30 96 C16 62 24 26 54 6 Z" fill="url(#ia)"/><path d="M54 22 C70 34 76 60 68 82 L40 82 C32 60 38 34 54 22 Z" fill="#171226"/><text x="54" y="66" font-family="Outfit, sans-serif" font-size="36" font-weight="800" fill="#fff" text-anchor="middle">TG</text></svg></div><div style="font-size:9px;color:var(--text-3);margin-top:5px">Teardrop</div></div>
+      </div>
+      <div class="cap">Konsep A dalam 4 mask Adaptive Icon standar Android<br><span style="color:var(--brand-3)">→ mark selalu aman di tengah, mask apa pun tetap bagus</span></div>
+    </div>
+
+    <div class="phone-card">
+      <div class="set-group" style="margin:14px">
+        <div style="padding:14px 16px;font-size:12px;font-weight:700">Ikon In-App (Material Symbols / custom)</div>
+        <div class="set-row"><div class="ic3"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z" fill="currentColor"/></svg></div><div class="lbl">Home · Beranda</div></div>
+        <div class="set-row"><div class="ic3"><svg viewBox="0 0 24 24" width="16" height="16"><rect x="3" y="3" width="7" height="7" rx="2" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="2" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="2" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="2" fill="currentColor"/></svg></div><div class="lbl">Pasaran</div></div>
+        <div class="set-row"><div class="ic3"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div><div class="lbl">Input · Tambah data</div></div>
+        <div class="set-row"><div class="ic3"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="4" fill="currentColor"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6" fill="currentColor"/></svg></div><div class="lbl">Profil</div></div>
+        <div class="set-row"><div class="ic3"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 12h12M14 8l4 4-4 4" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="lbl">Logout</div></div>
+      </div>
+      <div class="cap">Ikon bottom nav &amp; aksi — <b>outline saat idle</b>, <b>filled + gradient saat aktif</b></div>
+    </div>
+
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="sec" style="margin-top:64px">
+    <div class="sub" style="text-align:center">
+      Konsep design TGQ Native v1.0 · Kotlin + Jetpack Compose · dark premium dengan signature gradient violet→magenta→gold
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

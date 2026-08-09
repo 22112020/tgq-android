@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TGQ Predictor</string>
+    <string name="app_name">TGQ — Luna Core</string>
+    <string name="default_server">https://tgq.duaduasatusatu.qzz.io</string>
+    <string name="server_pref">tgq_server</string>
+    <string name="token_pref">tgq_admin_token</string>
+    <string name="user_pref">tgq_admin_user</string>
 </resources>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TGQ — Trust Generator Qualitynumbers</title>
+<link rel="stylesheet" href="css/style.css">
+<!-- Fluent UI Web Components -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.0.2/dist/components.css" />
+<script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.0.2/dist/components.js"></script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-brand">TGQ <span class="nav-sub">Trust Generator Qualitynumbers</span></div>
+  <div class="nav-links">
+    <a href="#" class="active" data-page="dashboard"><img src="https://cdn.jsdelivr.net/npm/@fluentui/svg-icons@1.1.334/icons/home_24_regular.svg" width="20" height="20" alt="Dashboard"> Dashboard</a>
+    <a href="#" data-page="predict"><img src="https://cdn.jsdelivr.net/npm/@fluentui/svg-icons@1.1.334/icons/search_24_regular.svg" width="20" height="20" alt="Prediksi"> Prediksi</a>
+    <a href="#" data-page="markets"><img src="https://cdn.jsdelivr.net/npm/@fluentui/svg-icons@1.1.334/icons/store_24_regular.svg" width="20" height="20" alt="Market"> Market</a>
+    <a href="#" data-page="trash"><img src="https://cdn.jsdelivr.net/npm/@fluentui/svg-icons@1.1.334/icons/delete_24_regular.svg" width="20" height="20" alt="Trash"> Trash</a>
+    <a href="#" data-page="about"><img src="https://cdn.jsdelivr.net/npm/@fluentui/svg-icons@1.1.334/icons/info_24_regular.svg" width="20" height="20" alt="About"> About</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- DASHBOARD -->
+  <section id="page-dashboard" class="page active">
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-label">Status</div><div class="stat-value" id="sysStatus">—</div></div>
+      <div class="stat-card"><div class="stat-label">Engine</div><div class="stat-value" id="sysEngines">—</div></div>
+      <div class="stat-card"><div class="stat-label">Market</div><div class="stat-value" id="sysMarkets">—</div></div>
+      <div class="stat-card"><div class="stat-label">Sync</div><div class="stat-value" id="sysSync">—</div></div>
+    </div>
+
+    <div class="hoki-banner" id="hokiBanner">
+      <div class="hoki-content">
+        <div class="hoki-label">HOKI NUMBER HARIAN</div>
+        <div class="hoki-numbers">
+          <span class="hoki-main" id="hokiMain">—</span>
+          <span class="hoki-backup">|</span>
+          <span class="hoki-backup" id="hokiBackup">—</span>
+        </div>
+        <div class="hoki-meta">
+          <span class="hoki-date" id="hokiDate">—</span>
+          <span class="hoki-confidence" id="hokiConfidence">Confidence: —</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" id="latestPrediction">
+      <div class="card-header">Prediksi Terakhir</div>
+      <div class="card-body" id="latestResult">Belum ada prediksi.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Akses Cepat</div>
+      <div class="card-body quick-actions">
+        <fluent-button id="btnTotoMacau" onclick="predictTotoMacau()" appearance="accent">Toto Macau</fluent-button>
+        <fluent-button id="btnOregon03" onclick="predictOregon('OREGON03')" appearance="accent">Oregon 03</fluent-button>
+        <fluent-button id="btnOregon06" onclick="predictOregon('OREGON06')" appearance="accent">Oregon 06</fluent-button>
+        <fluent-button id="btnOregon09" onclick="predictOregon('OREGON09')" appearance="accent">Oregon 09</fluent-button>
+        <fluent-button id="btnOregon12" onclick="predictOregon('OREGON12')" appearance="accent">Oregon 12</fluent-button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREDIKSI -->
+  <section id="page-predict" class="page">
+    <div class="card">
+      <div class="card-header">Panel Prediksi</div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>Engine</label>
+          <fluent-select id="predictEngine">
+            <fluent-option value="toto_macau">Toto Macau</fluent-option>
+            <fluent-option value="oregon">Oregon</fluent-option>
+            <fluent-option value="historical_trend">Historical Trend (all markets)</fluent-option>
+          </fluent-select>
+        </div>
+        <div class="form-group">
+          <label>Market</label>
+          <fluent-select id="predictMarket">
+            <fluent-option value="TOTO MACAU">TOTO MACAU</fluent-option>
+          </fluent-select>
+          <div id="marketHistGroup" style="display:none;margin-top:6px">
+            <fluent-text-field id="marketHistSearch" placeholder="Cari market..." type="text"></fluent-text-field>
+          </div>
+        </div>
+        <fluent-button id="btnRunPrediction" appearance="accent" onclick="runPrediction()">Jalankan Prediksi</fluent-button>
+        <div class="result-box" id="predictResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETS -->
+  <section id="page-markets" class="page">
+    <div class="card">
+      <div class="card-header">All Markets</div>
+      <div class="card-body">
+        <div class="search-bar">
+          <fluent-text-field id="marketSearch" placeholder="Cari market..." type="text"></fluent-text-field>
+        </div>
+        <div class="market-grid" id="marketGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRASH -->
+  <section id="page-trash" class="page">
+    <div class="card">
+      <div class="card-header">Trash Dashboard</div>
+      <div class="card-body">
+        <p style="color:#888;font-size:13px;margin-bottom:12px">
+          Paste data harian format <strong>MARKET POOL → result → [PERIODE : N]</strong>.
+          Maksimal 400 baris. Data tersimpan otomatis ke <code>trash_dashboard/</code> dan
+          langsung di-<em>sync</em> ke engine prediksi. File trash sebelumnya akan <strong>otomatis dihapus</strong>.
+        </p>
+        <div class="form-group">
+          <fluent-text-area id="trashInput" placeholder="25-07-2026&#10;&#10;OREGON03 POOL&#10;3474&#10;[PERIODE : 2100]&#10;&#10;BULLSEYE POOL&#10;0804&#10;[PERIODE : 1455]&#10;" rows="12"></fluent-text-area>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <span id="trashLineCount" style="color:#666;font-size:12px">0 / 400 baris</span>
+            <div>
+              <fluent-button id="btnClearTrash" onclick="clearTrash()">Hapus</fluent-button>
+              <fluent-button id="btnSaveTrash" appearance="accent" onclick="saveTrash()">Simpan ke Trash</fluent-button>
+            </div>
+          </div>
+        </div>
+        <div id="trashResult" class="result-box"></div>
+        <div id="trashStatus" style="margin-top:12px;padding:12px;background:#0f0f1a;border-radius:8px;border:1px solid #2a2a4a;display:none">
+          <div style="font-size:13px;color:#888">Status Trash</div>
+          <div id="trashInfo" style="font-size:13px;color:#ccc;margin-top:4px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="page-about" class="page">
+    <div class="card">
+      <div class="card-header">Tentang TGQ</div>
+      <div class="card-body about-content">
+        <p><strong>TGQ</strong> — Trust Generator Qualitynumbers.</p>
+        <p>Modular local analysis engine untuk prediksi lottery. Bagian dari ekosistem Luna Core.</p>
+        <p><strong>Teknologi:</strong> Python 3.12+ · FastAPI · unittest</p>
+        <p><strong>Lokasi:</strong> /mnt/d/Alfian/Togelku/</p>
+        <p><strong>Database:</strong> data_harian/ (source) → pasaran_luna/ (structured)</p>
+        <p><strong>Mesin:</strong> Toto Macau · Oregon</p>
+        <p><strong>Market:</strong> 47 total (33 named + 14 orphan)</p>
+        <p><strong>Tests:</strong> 90 · semua lulus</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  TGQ v1.0 · Luna Core · 2026
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
