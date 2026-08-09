@@ -107,12 +107,12 @@ fun MarketDetailScreen(vm: AppViewModel, market: MarketInfo, onBack: () -> Unit)
                 modifier = Modifier.fillMaxWidth().height(52.dp)
             )
 
-            ui.value.error?.let {
+            ui.error?.let {
                 Spacer(Modifier.height(12.dp))
                 Text(it, color = Danger, fontSize = 12.sp)
             }
 
-            val pred = ui.value.lastPrediction
+            val pred = ui.lastPrediction
             if (pred != null && pred.market == market.name) {
                 Spacer(Modifier.height(20.dp))
                 TqgCard(modifier = Modifier.fillMaxWidth()) {

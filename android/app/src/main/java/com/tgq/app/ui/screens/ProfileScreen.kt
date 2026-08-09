@@ -65,18 +65,18 @@ fun ProfileScreen(vm: AppViewModel) {
                         .background(BrandGradient),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("A", fontSize = 26.sp, androidx.compose.ui.text.font.FontWeight.ExtraBold, color = androidx.compose.ui.graphics.Color.White)
+                    Text("A", fontSize = 26.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.ExtraBold, color = androidx.compose.ui.graphics.Color.White)
                 }
                 Spacer(Modifier.size(14.dp))
                 Column {
-                    Text(ui.value.username.ifBlank { "Admin" }, fontSize = 16.sp, androidx.compose.ui.text.font.FontWeight.Bold, color = TextPrimary)
+                    Text(ui.value.username.ifBlank { "Admin" }, fontSize = 16.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, color = TextPrimary)
                     Text("Admin Luna Core", fontSize = 11.sp, color = TextMuted)
                 }
             }
         }
 
         Spacer(Modifier.height(18.dp))
-        Text("Server TGQ", fontSize = 13.sp, androidx.compose.ui.text.font.FontWeight.Bold, color = TextPrimary)
+        Text("Server TGQ", fontSize = 13.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, color = TextPrimary)
         Spacer(Modifier.height(8.dp))
         OutlinedTextField(
             value = server,

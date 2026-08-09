@@ -178,7 +178,6 @@ fun HomeScreen(vm: AppViewModel, onOpenHoki: () -> Unit, onOpenMarkets: () -> Un
                             color = if (m.latestResult.isNotBlank()) TextPrimary else TextMuted
                         )
                     }
-                }
             }
         }
     }

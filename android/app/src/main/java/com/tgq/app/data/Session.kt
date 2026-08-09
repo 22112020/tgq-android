@@ -8,7 +8,7 @@ import com.tgq.app.R
  * Persists app config & admin session.
  * Server URL, admin token and username are stored in a single prefs file.
  */
-class Session private constructor(context: Context) {
+class Session private constructor(private val context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("tgq_native", Context.MODE_PRIVATE)

@@ -19,6 +19,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,7 +44,7 @@ fun SplashScreen(onDone: () -> Unit) {
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(tween(4000))
-    ) { it }
+    )
 
     Box(
         modifier = Modifier.fillMaxSize().background(BrandViolet.copy(alpha = 0.04f))

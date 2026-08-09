@@ -70,7 +70,7 @@ object LunaParser {
             if (poolIdx == -1) return@forEach
 
             val rawName = blockLines[poolIdx]
-                .split(Regex("POOL"), ignoreCase = true)[0]
+                .split(Regex("POOL", RegexOption.IGNORE_CASE))[0]
                 .trim().uppercase().replace(Regex("\\s+"), "")
             if (rawName.isEmpty()) return@forEach
 

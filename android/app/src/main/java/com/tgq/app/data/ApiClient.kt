@@ -2,8 +2,8 @@ package com.tgq.app.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -36,7 +36,7 @@ class ApiClient {
         return builder.build()
     }
 
-    private suspend fun <T> execute(path: String, method: String = "GET", body: String? = null): T {
+    private suspend inline fun <reified T> execute(path: String, method: String = "GET", body: String? = null): T {
         return withContext(Dispatchers.IO) {
             val res = client.newCall(request(path, method, body)).execute()
             val text = res.body?.string().orEmpty()
@@ -46,7 +46,7 @@ class ApiClient {
                 }.getOrDefault(text.ifEmpty { "HTTP ${res.code}" })
                 throw ApiException(res.code, detail)
             }
-            json.decodeFromString(serializer<T>(), text)
+            json.decodeFromString<T>(text)
         }
     }
 

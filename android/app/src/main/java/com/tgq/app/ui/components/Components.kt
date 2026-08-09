@@ -39,8 +39,11 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,14 +65,17 @@ import com.tgq.app.ui.theme.Stroke
 // ===== Gradient text =====
 @Composable
 fun GradientText(text: String, modifier: Modifier = Modifier, brush: Brush = BrandGradient2, fontSize: Int = 40, fontWeight: FontWeight = FontWeight.ExtraBold, letterSpacing: Int = 3) {
+    val styled = buildAnnotatedString {
+        withStyle(SpanStyle(brush = brush)) {
+            append(text)
+        }
+    }
     Text(
-        text = text,
+        text = styled,
         modifier = modifier,
         fontSize = fontSize.sp,
         fontWeight = fontWeight,
         letterSpacing = letterSpacing.sp,
-        color = Color.Transparent,
-        brush = brush,
         textAlign = TextAlign.Center
     )
 }
